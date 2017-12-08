@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title>知问系统</title>
+	<link rel="icon" href="./image/snowflake.ico">
+	<link rel="stylesheet" href="./smoothness/jquery-ui-1.10.4.custom.css">
+	<link rel="stylesheet" href="../product/css/index.css">
+	<script src="./smoothness/jquery.min.js"></script>
+	<script src="./smoothness/jquery-ui-1.10.4.custom.js"></script>
+	<script src="./smoothness/jquery.validate.js"></script>
+	<script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"> </script>
+	<script src="./js/index.js"></script>
+	<script src="./smoothness/form.js"></script>
+	<script src="smoothness/jquery.cookie.js"></script>
+</head>
+<body>
+<header>
+	<div class="header_main">
+		<h1>知问</h1>
+		<div class="header_search">
+			<input type="text" name="search" class="search">
+		</div>
+		<div class="header_button">
+			<button id="search_button">查询</button>
+			<button id="question_button">提问</button>
+		</div>
+		<div class="header_member">
+			<a href="javascript:void(0)" id="reg_a">注册</a>
+			<a href="javascript:void(0)" id="member">用户</a>
+			| <a href="javascript:void(0)" id="login_a">登陆</a>
+			 <a href="javascript:void(0)" id="logout">退出</a>
+		</div>
+	</div>
+</header>
+<div id="main">
+	<div class="main_left">
+		<div id="tabs">
+			<ul>
+				<li><a href="tab1.html">tab1</a></li>
+				<li><a href="tab2.html">tab2</a></li>
+				<li><a href="tab3.html">tab3</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="main_right">
+		<div id="accordion">
+			<h1>菜单一</h1>
+			<div>内容一</div>
+			<h1>菜单二</h1>
+			<div>内容二</div>
+			<h1>菜单三</h1>
+			<div>内容三</div>
+		</div>
+	</div>
+</div>
+
+<form id="reg" title="会员注册" action="./php/test.php">
+	<ol class="myerror"></ol>
+	<p>
+		<label>
+			<span>账号:</span>
+			<input type="text" name="user" id="user" class="text" >
+			<i class="star">*</i>
+		</label>
+
+	</p>
+	<p>
+		<label>
+			<span>密码:</span>
+			<input type="password" name="pass" id="pass" class="text" >
+			<i class="star">*</i>
+		</label>
+
+	</p>
+	<p>
+		<label>
+			<span>核对:</span>
+			<input type="password" name="pwdSure" id="pwdSure" class="text" >
+			<i class="star">*</i>
+		</label>
+
+	</p>
+	<p>
+		<label>
+			<span>邮箱:</span>
+			<input type="email" name="email" id="email" class="text" >
+			<i class="star">*</i>
+		</label>
+
+	</p>
+	<p>
+		<span>性别:</span>
+		<label>
+			<input type="radio" name="sex" value="male">
+			<span>男</span>
+		</label>
+		<label>
+			<input type="radio" name="sex" value="female">
+			<span>女</span>
+		</label>
+	</p>
+	<p>
+		<label>
+			<span>生日:</span>
+			<input type="text" readonly="readonly" name="date" id="date" class="text">
+			<i class="star">*</i>
+		</label>
+	</p>
+</form>
+<form id="login" title="会员登录">
+	<ol class="login_error"></ol>
+	<p>
+		<label>
+			<span>账号:</span>
+			<input type="text" name="login_user" id="login_user" class="text" >
+			<i class="star">*</i>
+		</label>
+	</p>
+	<p>
+		<label>
+			<span>密码:</span>
+			<input type="password" name="login_pass" id="login_pass" class="text" >
+			<i class="star">*</i>
+		</label>
+	</p>
+	<p>
+		<lable>
+			<input type="checkbox" name="expires" id="expires" checked="checked">
+			<span>登录后有效期一周</span>
+		</lable>
+	</p>
+</form>
+<form title="提问" id="question" name="question">
+	<p>
+		<label>
+			<span>问题名称:</span>
+			<input type="text" name="title" id="title" class="text">
+		</label>
+	</p>
+	<div id="editor" type="text/plain" style="width:1024px;height:500px;">
+	</div>
+
+</form>
+<div id="loading">数据交互中...</div>
+<div id="error">请登录后提问...</div>
+
+</body>
+</html>

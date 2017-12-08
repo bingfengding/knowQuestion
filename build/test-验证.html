@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title>知问系统</title>
+	<link rel="icon" href="./image/snowflake.ico">
+	<script src="./smoothness/jquery.min.js"></script>
+	<script src="./smoothness/jquery-ui-1.10.4.custom.js"></script>
+	<script src="./smoothness/jquery.validate.js"></script>
+	<script src="smoothness/additional-methods.js"></script>
+	<script src="./js/test-验证.js"></script>
+	<style>
+		.valid{
+			background-color: #00ccce;
+		}
+	</style>
+</head>
+<body>
+<form action="index.html" id="reg">
+	<ol class="myerror"> </ol>
+	<p class="ierror"></p>
+	<p>
+		<label>
+			账号：<input type="text" name="user" id="user">
+		</label>
+	</p>
+
+	<p>邮箱：<input type="text" name="email123" id="email321"></p>
+	<p>网址：<input type="text" name="url"></p>
+	<p>日期：<input type="text" name="date"></p>
+	<p>数字：<input type="text" name="number"></p>
+	<p>密码：<input type="password" id="pwd1" name="pwd"></p>
+	<p>验证：<input type="password" name="notpwd"></p>
+	<p><input type="submit" value="提交"></p>
+</form>
+</body>
+</html>

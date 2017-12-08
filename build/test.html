@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title>知问系统</title>
+	<link rel="icon" href="./image/snowflake.ico">
+	<link rel="stylesheet" href="./smoothness/jquery-ui-1.10.4.custom.css">
+	<link rel="stylesheet" href="../product/css/index.css">
+	<script src="./smoothness/jquery.min.js"></script>
+	<script src="./smoothness/jquery-ui-1.10.4.custom.js"></script>
+	<script src="./smoothness/jquery.validate.js"></script>
+	<script src="./js/index.js"></script>
+	<script>
+		function handleRtn(){
+			if(xmlHttp.readyState === 4){
+				if(xmlHttp.status=== 200 || xmlHttp.status===0){
+					let res = document.getElementById("list");
+					res.value = xmlHttp.responseText;
+				}
+				//alert(xmlHttp.readyState+"<>"+xmlHttp.status);
+			}
+		}
+        let xmlHttp = new XMLHttpRequest();
+        let url = encodeURI("test.php?test=1&?name=null");
+		xmlHttp.onreadystatechange = handleRtn;
+		xmlHttp.open("get",url);
+		xmlHttp.send();
+	</script>
+</head>
+<body>
+
+
+<!--
+<h2 class="demoHeaders">ButtonStyle</h2>
+<input type="radio" id="radio0" name="radio" />
+<label for="radio1">Choice 1</label>-->
+
+
+<textarea class="" id="list" name="list" cols="70" rows="3"></textarea>
+</body>
+</html>
+

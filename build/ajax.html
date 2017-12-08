@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title>知问系统</title>
+	<link rel="icon" href="./image/snowflake.ico">
+	<link rel="stylesheet" href="./smoothness/jquery-ui-1.10.4.custom.css">
+	<link rel="stylesheet" href="../product/css/index.css">
+	<script src="./smoothness/jquery.min.js"></script>
+	<script src="./smoothness/jquery-ui-1.10.4.custom.js"></script>
+	<script src="./smoothness/jquery.validate.js"></script>
+	<script src="./smoothness/form.js"></script>
+	<script src="./js/ajax.js"></script>
+</head>
+<body>
+<header style="display: none">
+	<div class="header_main">
+		<h1>知问</h1>
+		<div class="header_search">
+			<input type="text" name="search" class="search">
+		</div>
+		<div class="header_button">
+			<button id="search_button">查询</button>
+		</div>
+		<div class="header_member">
+			<a href="#" id="reg_a">注册</a> | <a href="#" id="login_a">登陆</a>
+		</div>
+	</div>
+</header>
+<form id="reg" title="会员注册" action="./test.html" method="get">
+	<ol class="myerror"></ol>
+	<p>
+		<label>
+			<span>账号:</span>
+			<input type="text" name="user" id="user" class="text" >
+			<i class="star">*</i>
+		</label>
+
+	</p>
+	<p>
+		<label>
+			<span>密码:</span>
+			<input type="password" name="pwd" id="pwd" class="text" >
+			<i class="star">*</i>
+		</label>
+
+	</p>
+	<p>
+		<label>
+			<span>核对:</span>
+			<input type="password" name="pwdSure" id="pwdSure" class="text" >
+			<i class="star">*</i>
+		</label>
+
+	</p>
+	<p>
+		<label>
+			<span>邮箱:</span>
+			<input type="email" name="email" id="email" class="text" >
+			<i class="star">*</i>
+		</label>
+
+	</p>
+	<p>
+		<span>性别:</span>
+		<label>
+			<input type="radio" name="sex" value="male">
+			<span>男</span>
+		</label>
+		<label>
+			<input type="radio" name="sex" value="female">
+			<span>女</span>
+		</label>
+	</p>
+	<p>
+		<label>
+			<span>生日:</span>
+			<input type="text" readonly="readonly" name="date" id="date" class="text">
+		</label>
+	</p>
+	<input type="submit" value="提交">
+</form>
+<div id="box">123</div>
+<div id="login" title="会员登陆">
+</div>
+
+
+
+
+</body>
+</html>
