@@ -41,8 +41,8 @@ $(function () {
 				});
             }
         },
-        width:setRem(55),
-        height:setRem(42),
+        width:setRem(50),
+        height:setRem(35),
         show:false,
         hide:false,
         draggable:true,

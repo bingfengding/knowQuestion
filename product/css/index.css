@@ -207,7 +207,7 @@ header .header_main .header_member a {
 #login p .star {
   color: #760000;
   font-size: 1rem;
-  display: inline-block;
+  display: inline-block1;
   width: 2rem;
   height: 1.25rem;
   margin: 0;
@@ -278,4 +278,10 @@ header .header_main .header_member a {
   border-top: none;
   position: relative;
   top: -2px;
+}
+#editor {
+  height: 19rem;
+}
+#edui1 {
+  width: 47rem;
 }
