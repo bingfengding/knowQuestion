@@ -72,6 +72,7 @@ header
     background linear-gradient(#ffffff, #b5b5b5)
     position fixed
     top 0
+    z-index 14
     .header_main
         width 50rem
         height 2rem
@@ -216,13 +217,54 @@ header
     margin 2.5rem auto
     .main_left
         width 38rem
-        folat left
+        float left
+        margin-bottom 2.5rem
+        .content
+            h4
+                color #666
+                font-weight normal
+            h3
+                color #369
+            .editor
+                color #333
+                line-height 180%
+                position relative
+                overflow hidden
+                margin-bottom 1rem
+                .gradients
+                    width 38rem
+                    height 4rem
+                    background-image linear-gradient(to top,rgba(255,255,255,1),rgba(255,255,255,0))
+                    position absolute
+                    top 6rem
+                    z-index 12
+            .bottom
+                padding 5px 0 0 0
+                margin-top 1rem
+                position relative
+                margin-bottom 1rem
+            hr
+                color #ccc
+            .up
+                float right
+                color #369
+                cursor pointer
+            .down
+                color #369
+                font-size 1rem
+                cursor pointer
+                position absolute
+                top -0.5rem
+                left 40%
+                z-index 13
+
     .main_right
         width 10rem
         float right
+
 #tabs
     border none
-    float: left
+    float left
     width 38rem
     #ui-tabs-1,#ui-tabs-2,#ui-tabs-3
         border 1px solid #aaaaaa

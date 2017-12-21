@@ -30,6 +30,48 @@ $(function () {
     });
 
 
+	$.ajax({
+		url:'./php/show_content.php',
+		type:'POST',
+		success:function (response,status,xhr) {
+			//通过设置高度来隐藏,但是可能导致部分字显示一半
+			var json = jQuery.parseJSON(response);
+			 var html = '';
+			 var arr  =[];
+			$.each(json,function (index,value) {
+                html+= '<h4>'+ value.user +' 发表于'+value.date+'</h4><h3>'+value.title+'</h3><div class="editor">'+value.content+'<div class="gradients"></div></div><div class="bottom">0条评论 <span class="down">展开阅读全文</span><span class="up">收起</span><hr size="1"></div>'
+
+            });
+			$('.content').append(html);
+			$.each($('.editor'),function (index,value) {
+				arr[index] = $(value).height();
+                $(value).next('.bottom').find('.up').hide();
+				if($(value).height()>setRem(10)){
+                    $(value).height(setRem(10));
+				}
+
+            });
+            $.each($('.bottom .down'),function (index,value) {
+				$(this).click(function () {
+					$(this).parent().prev().height(arr[index]);
+                    $(this).hide();
+                    $(this).parent().find('.up').show();
+                    $(this).parent().prev().find('.gradients').hide();
+                })
+            });
+            $.each($('.bottom .up'),function (index,value) {
+                $(this).click(function () {
+                	if($(this).parent().prev().height()>setRem(10)){
+                        $(this).parent().prev().height(setRem(10));
+					}
+                    $(this).hide();
+                    $(this).parent().find('.down').show();
+                    $(this).parent().prev().find('.gradients').show();
+                })
+            })
+        },
+	});
+
 //提问设置
     $("#question").dialog({
         autoOpen:false,
@@ -37,7 +79,29 @@ $(function () {
             "发布":function () {
                 $(this).ajaxSubmit({
 					url:'./php/add_content.php',
-					type:'POST'
+					type:'POST',
+					data:{
+						user:$.cookie('user'),
+					},
+                    beforeSubmit:function (formData,jqForm,options) {
+                        $('#loading').dialog('open');
+                        $('#question').dialog('widget').find('button').eq(1).button('disable');
+                    },
+                    success:function (reseponseText,statusText) {
+                        if(reseponseText){
+                            $('#question').dialog('widget').find('button').eq(1).button('enable');
+                            $("#loading").css('background','url(image/sure.png) no-repeat 1rem center').html('数据新增成功...');
+                            $("#loading").css('background-size','1rem');
+                            setTimeout(function () {
+                                $('#loading').dialog('close');
+                                $('#question').dialog('close');
+                                $('#question').resetForm();
+                           		$('#ueditor_0').contents().find('body.view').html("");
+                                $("#loading").css('background','url(image/loading.gif) no-repeat 1rem center').html('数据交互...');
+                                $("#loading").css('background-size','1rem');
+                            },1000);
+                        }
+                    }
 				});
             }
         },
@@ -52,7 +116,6 @@ $(function () {
     });
 
     var ue = UE.getEditor('editor');
-
 //错误提示
     $("#error").dialog({
         autoOpen:false,

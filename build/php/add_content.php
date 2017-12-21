@@ -1,7 +1,10 @@
 <?php
-    sleep(3);
+    sleep(1);
     require "config.php";
-    $query = "insert into question(title,content,user,date) VALUES ('{$_POST['title']}','{$_POST['user']}',NOW())";
-    masqli_query($query) or die('新增失败!'.mysqli_error());
-    echo mysqli_affected_rows();
-    mysqli_close();
+    $title = $_POST['title'];
+    $user = $_POST['user'];
+    $content = $_POST['editorValue'];
+    $query = "insert into question(title,content,`user`,`date`) VALUES ('$title','$content','$user',now())";
+    mysqli_query($con,$query) or die('新增失败!'.mysqli_error($con));
+    echo mysqli_affected_rows($con);
+    mysqli_close($con);

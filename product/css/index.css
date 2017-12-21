@@ -79,6 +79,7 @@ header {
   background: linear-gradient(#fff, #b5b5b5);
   position: fixed;
   top: 0;
+  z-index: 14;
 }
 header .header_main {
   width: 50rem;
@@ -260,7 +261,53 @@ header .header_main .header_member a {
 }
 #main .main_left {
   width: 38rem;
-  folat: left;
+  float: left;
+  margin-bottom: 2.5rem;
+}
+#main .main_left .content h4 {
+  color: #666;
+  font-weight: normal;
+}
+#main .main_left .content h3 {
+  color: #369;
+}
+#main .main_left .content .editor {
+  color: #333;
+  line-height: 180%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+#main .main_left .content .editor .gradients {
+  width: 38rem;
+  height: 4rem;
+  background-image: linear-gradient(to top, #fff, rgba(255,255,255,0));
+  position: absolute;
+  top: 6rem;
+  z-index: 12;
+}
+#main .main_left .content .bottom {
+  padding: 5px 0 0 0;
+  margin-top: 1rem;
+  position: relative;
+  margin-bottom: 1rem;
+}
+#main .main_left .content hr {
+  color: #ccc;
+}
+#main .main_left .content .up {
+  float: right;
+  color: #369;
+  cursor: pointer;
+}
+#main .main_left .content .down {
+  color: #369;
+  font-size: 1rem;
+  cursor: pointer;
+  position: absolute;
+  top: -0.5rem;
+  left: 40%;
+  z-index: 13;
 }
 #main .main_right {
   width: 10rem;
