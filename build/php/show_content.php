@@ -1,7 +1,8 @@
 <?php
     require 'config.php';
 
-    $query = mysqli_query($con,"SELECT title,content,`user`,`date` FROM question ORDER BY `date` DESC LIMIT 0,10")or die("SQL 错误！");
+    $query = mysqli_query($con,"SELECT (SELECT COUNT(*) FROM comment WHERE titleid=a.id) AS count,a.id,a.title,a.content,a.user,a.date FROM question a ORDER BY a.date DESC LIMIT 0,15")or die("SQL 错误！");
+    echo
     $JSON='';
     while(!!$row=mysqli_fetch_array($query,MYSQLI_ASSOC)){
         foreach($row as $key => $value){

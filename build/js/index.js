@@ -1,7 +1,8 @@
 $(function () {
 	function setRem(number) {
-		var rem =parseFloat(getComputedStyle(document.documentElement)["fontSize"]);
-		return number*rem;
+        var top = document.documentElement ? document.documentElement : document.body;
+        var rem =parseFloat(getComputedStyle(top)["fontSize"]);
+        return number*rem;
 	}
 
 
@@ -35,11 +36,11 @@ $(function () {
 		type:'POST',
 		success:function (response,status,xhr) {
 			//通过设置高度来隐藏,但是可能导致部分字显示一半
-			var json = jQuery.parseJSON(response);
+			var json = $.parseJSON(response);
 			 var html = '';
 			 var arr  =[];
 			$.each(json,function (index,value) {
-                html+= '<h4>'+ value.user +' 发表于'+value.date+'</h4><h3>'+value.title+'</h3><div class="editor">'+value.content+'<div class="gradients"></div></div><div class="bottom">0条评论 <span class="down">展开阅读全文</span><span class="up">收起</span><hr size="1"></div>'
+                html+= '<h4>'+ value.user +' 发表于'+value.date+'</h4><h3>'+value.title+'</h3><div class="editor">'+value.content+'<div class="gradients"></div></div><div class="bottom"><span class="comment" data-id="'+value.id+'">'+value.count+'条评论</span><span class="down">展开阅读全文</span><span class="up">收起</span><hr size="1"><div class="comment_list"></div></div>'
 
             });
 			$('.content').append(html);
@@ -67,7 +68,127 @@ $(function () {
                     $(this).hide();
                     $(this).parent().find('.down').show();
                     $(this).parent().prev().find('.gradients').show();
+
                 })
+            });
+            $.each($('.bottom .comment'),function (index,value) {
+				$(this).click(function () {
+					var comment_this=this;
+					if($.cookie('user')){
+						if(!$('.comment_list').eq(index).has('form').length){
+							$.ajax({
+								url: 'php/show_comment.php',
+								type:'POST',
+								data:{
+									titleid:$(comment_this).attr('data-id'),
+								},
+								beforeSend:function (jqXHR,setting) {
+                                    $('.comment_list').eq(index).append('<dl class="comment_load"><dd>正在加载评论</dd></dl>');
+                                },
+								success:function (response,status) {
+                                    $('.comment_list').eq(index).find('.comment_load').hide();
+                                  var response_len = response.indexOf('[');
+                                    response = response.substr(response_len,response.length);
+                                    var json_comment = JSON.parse(response);
+                                    var count = 0;
+
+                                    $.each(json_comment,function (index2,value) {
+                                        count = value.count;
+
+                                        $('.comment_list').eq(index).append('<dl class="comment_content"><dt>'+value.user+'</dt><dd>'+value.comment+'</dd><dd class="date">'+value.date+'</dd></dl>')
+                                    });
+
+                                    $('.comment_list').eq(index).append('<di><dd><span class="load_more">加载更多评论</span></dd></di>');
+
+                                    var page = 2;
+                                    if(page > count){
+                                        //$('.comment_list').eq(index).find('.load_more').off('click');
+                                        $('.comment_list').eq(index).find('.load_more').hide();
+                                    }
+
+                                    $('.comment_list').eq(index).find('.load_more').button().on('click',function () {
+                                        $('.comment_list').eq(index).find('.load_more').button('disable');
+                                        $.ajax({
+                                        url: 'php/show_comment.php',
+                                        type: 'POST',
+                                        data:{
+                                            titleid:$(comment_this).attr('data-id'),
+                                            page :page,
+                                        },
+                                        beforeSend:function (jqXHR,setting) {
+
+                                        },
+                                        success:function (response,status) {
+                                            var response_len = response.indexOf('[');
+                                            response = response.substr(response_len,response.length);
+                                            var json_comment_more = JSON.parse(response);
+                                            $.each(json_comment_more,function (index3,value) {
+                                                $('.comment_list').eq(index).find('.comment_content').last().append('<dl class="comment_content"><dt>'+value.user+'</dt><dd>'+value.comment+'</dd><dd class="date">'+value.date+'</dd></dl>')
+                                            });
+                                            page++;
+                                            if(page > count){
+                                                //$('.comment_list').eq(index).find('.load_more').off('click');
+                                                $('.comment_list').eq(index).find('.load_more').hide();
+                                            }
+                                            $('.comment_list').eq(index).find('.load_more').button('enable');
+                                        }
+                                    });
+									});
+
+
+
+                                    $('.comment_list').eq(index).append('<form><dl class="comment_add"><dt><textarea name="comment" cols="30" rows="10"></textarea></dt><dd><input type="hidden" name="titleid" value="'+$(comment_this).attr('data-id')+'"><input type="hidden" name="user" value="'+$.cookie('user')+'"><input type="button" value="发表"></dd></dl></form>');
+
+                                    $('.comment_list').eq(index).find('input[type=button]').button().click(function () {
+                                        var _this=this;
+                                        $('.comment_list').eq(index).find('form').ajaxSubmit({
+                                            url:'php/comments.php',
+                                            type:'POST',
+                                            beforeSubmit:function (formData,jqForm,options) {
+                                                $('#loading').dialog('open');
+                                                $(_this).button('disable');
+                                            },
+                                            success:function (reseponseText,statusText) {
+                                                if(reseponseText){
+                                                    $(_this).button('enable');
+                                                    $("#loading").css('background','url(image/sure.png) no-repeat 1rem center').html('数据新增成功...');
+                                                    $("#loading").css('background-size','1rem');
+                                                    setTimeout(function () {
+                                                    	var date=new Date();
+                                                        $('#loading').dialog('close');
+                                                       $('.comment_list').eq(index).prepend('<dl class="comment_content"><dt>'+$.cookie('user')+'</dt><dd>'+$('.comment_list').eq(index).find('textarea').val()+'</dd><dd>'+date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+':'+date.getMinutes()+':'+date.getMilliseconds()+'</dd></dl>');
+                                                        $('.comment_list').eq(index).find('form').resetForm();
+                                                        $("#loading").css('background','url(image/loading.gif) no-repeat 1rem center').html('数据交互...');
+                                                        $("#loading").css('background-size','1rem');
+
+
+                                                    },1000);
+                                                }
+                                            }
+                                        });
+                                    })
+                                }
+
+							})
+						}
+						if($('.comment_list').eq(index).css("display")=='none'){
+                            $('.comment_list').eq(index).show();
+
+						}else{
+                            $('.comment_list').eq(index).hide();
+
+						}
+
+					}else{
+						$('#error').dialog('open');
+						setTimeout(function () {
+							$('#error').dialog('close');
+							$('#login').dialog('open');
+
+                        },1000);
+					}
+                });
+
             })
         },
 	});
@@ -153,12 +274,12 @@ $(function () {
 	} else {
         $('#member,#logout').hide();
         $('#reg_a,#login_a').show()
-	};
+	}
 
 
 	$('#logout').click(function () {
 		$.removeCookie('user');
-		window.location.href = '/knowQuestion/build/';
+		window.location.href = '/zhihu';
     });
 
 	//等待时间

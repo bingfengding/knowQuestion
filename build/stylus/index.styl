@@ -35,10 +35,6 @@ body
 img
     border 0
 
-ul
-    margin 0
-    padding 0
-
 ul li
     list-style: none
 
@@ -96,6 +92,7 @@ header
                 width 16rem
                 height 1.4rem
                 border 1px solid #CCCCCC
+                border-radius 0.5rem
                 background #ffffff
                 color #666666
                 font-size 0.7rem
@@ -225,6 +222,13 @@ header
                 font-weight normal
             h3
                 color #369
+            .load_more
+                width 99%
+                margin 0.5rem 0 0 0
+                .ui-button-text
+                    height 1.5rem
+                    line-height 1.5rem
+                    padding 0
             .editor
                 color #333
                 line-height 180%
@@ -243,6 +247,44 @@ header
                 margin-top 1rem
                 position relative
                 margin-bottom 1rem
+                .comment
+                    color #369
+                    cursor pointer
+                .comment_list
+                    display none
+                    border-radius 0.2rem
+                    border 1px solid #ccc
+                    min-height 1.25rem
+                    padding 0.25rem 0.5rem
+                    dl
+                        padding 0.15rem 0.5rem 0.25rem 0
+                        dt
+                            padding 0.25rem 0 0 0
+                            color #369
+                        dd
+                            color #333
+                            line-height 180%
+                        dd.date
+                            color #999
+                            border-bottom 1px solid #ccc
+                    //dl.comment_content
+
+
+                .comment_add
+                    text-align right
+                    border none
+                    textarea
+                        width 100%
+                        border 1px solid #ccc
+                        border-radius 0.25rem
+                        background #fff
+                        padding 0.25rem
+                        font-size 0.6rem
+                        color #666
+                        resize none
+                    input
+                        cursor pointer
+
             hr
                 color #ccc
             .up
@@ -271,8 +313,13 @@ header
         border-top none
         position relative
         top -2px
+        color #363636
 #editor
-    //width 50rem
     height 19rem
 #edui1
     width 47rem
+#footer
+    clear both
+    color #666
+    text-align center
+    padding-bottom 0.5rem
