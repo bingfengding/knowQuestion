@@ -135,8 +135,6 @@ $(function () {
                                     });
 									});
 
-
-
                                     $('.comment_list').eq(index).append('<form><dl class="comment_add"><dt><textarea name="comment" cols="30" rows="10"></textarea></dt><dd><input type="hidden" name="titleid" value="'+$(comment_this).attr('data-id')+'"><input type="hidden" name="user" value="'+$.cookie('user')+'"><input type="button" value="发表"></dd></dl></form>');
 
                                     $('.comment_list').eq(index).find('input[type=button]').button().click(function () {
@@ -154,9 +152,40 @@ $(function () {
                                                     $("#loading").css('background','url(image/sure.png) no-repeat 1rem center').html('数据新增成功...');
                                                     $("#loading").css('background-size','1rem');
                                                     setTimeout(function () {
-                                                    	var date=new Date();
+                                                    	var date=new Date(),
+                                                                    newDatW ,
+                                                                    newHoursW ,
+                                                                    newMinutesW,
+                                                                    newMillisecondsW,
+                                                                    newMonthW;
                                                         $('#loading').dialog('close');
-                                                       $('.comment_list').eq(index).prepend('<dl class="comment_content"><dt>'+$.cookie('user')+'</dt><dd>'+$('.comment_list').eq(index).find('textarea').val()+'</dd><dd>'+date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+':'+date.getMinutes()+':'+date.getMilliseconds()+'</dd></dl>');
+                                                        if(date.getDate()<10){
+                                                            newDateW = "0"+date.getDate();
+                                                        }else{
+                                                            newDateW = date.getDate();
+                                                        }
+                                                        console.log();
+                                                        if(date.getMonth()+1<10){
+                                                            newMonthW = "0"+(date.getMonth()+1);
+                                                        }else{
+                                                            newMonthW = date.getMonth()+1;
+                                                        }
+                                                        if(date.getHours()<10){
+                                                            newHoursW = "0"+date.getHours();
+                                                        }else{
+                                                            newHoursW = date.getHours();
+                                                        }
+                                                        if(date.getMinutes()<10){
+                                                            newMinutesW = "0"+date.getMinutes();
+                                                        }else{
+                                                            newMinutesW = date.getMinutes();
+                                                        }
+                                                        if(date.getSeconds()<10){
+                                                            newMillisecondsW = "0"+date.getSeconds();
+                                                        }else{
+                                                            newMillisecondsW = date.getSeconds();
+                                                        }
+                                                       $('.comment_list').eq(index).prepend('<dl class="comment_content"><dt>'+$.cookie('user')+'</dt><dd>'+$('.comment_list').eq(index).find('textarea').val()+'</dd><dd>'+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+newDateW+" "+newHoursW+":"+newMinutesW+":"+newMillisecondsW+'</dd></dl>');
                                                         $('.comment_list').eq(index).find('form').resetForm();
                                                         $("#loading").css('background','url(image/loading.gif) no-repeat 1rem center').html('数据交互...');
                                                         $("#loading").css('background-size','1rem');
